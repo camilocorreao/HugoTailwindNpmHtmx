@@ -1,3 +1,16 @@
 baseURL: http://example.org/
 languageCode: en-us
 title: My New Hugo Site
+
+build:
+  buildStats:
+    enable: true
+  cachebusters:
+    - source: assets/watching/hugo_stats\.json
+      target: styles\.css
+    - source: (postcss|tailwind)\.config\.js
+      target: css
+    - source: assets/.*\.(js|ts|jsx|tsx)
+      target: js
+    - source: assets/.*\.(.*)$
+      target: $1
