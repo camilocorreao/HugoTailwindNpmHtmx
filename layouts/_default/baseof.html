@@ -1,4 +1,30 @@
+
 <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      {{ .Title }}
+    </title>
+    <meta name="description" content="{{ .Description }}" />
+    {{/* styles */}}
+    {{ $options := dict "inlineImports" true }}
+    {{ $styles := resources.Get "css/styles.css" }}
+    {{ $styles = $styles | resources.PostCSS $options }}
+    {{ if hugo.IsProduction }}
+      {{ $styles = $styles | minify | fingerprint | resources.PostProcess }}
+    {{ end }}
+    <link href="{{ $styles.RelPermalink }}" rel="stylesheet" />
+  </head>
+  <body class="my-10">
+    <div class="container px-4 lg:mx-auto">
+      {{ block "main" . }}{{ end }}
+    </div>
+  </body>
+</html>
+
+
+<!-- <!DOCTYPE html>
 <html>
     {{- partial "head.html" . -}}
     <body>
@@ -8,4 +34,4 @@
         </div>
         {{- partial "footer.html" . -}}
     </body>
-</html>
+</html> -->

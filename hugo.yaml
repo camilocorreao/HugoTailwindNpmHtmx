@@ -2,9 +2,20 @@ baseURL: http://example.org/
 languageCode: en-us
 title: My New Hugo Site
 
+module:
+  hugoVersion:
+    extended: true
+    min: 0.112.0
+  mounts:
+    - source: assets
+      target: assets
+    - source: hugo_stats.json
+      target: assets/watching/hugo_stats.json
+
 build:
   buildStats:
     enable: true
+  writeStats: true
   cachebusters:
     - source: assets/watching/hugo_stats\.json
       target: styles\.css
