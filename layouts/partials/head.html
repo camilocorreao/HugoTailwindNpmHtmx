@@ -1,0 +1,12 @@
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+     {{/* styles */}}
+    {{ $options := dict "inlineImports" true }}
+    {{ $styles := resources.Get "css/styles.css" }}
+    {{ $styles = $styles | resources.PostCSS $options }}
+    {{ if hugo.IsProduction }}
+      {{ $styles = $styles | minify | fingerprint | resources.PostProcess }}
+    {{ end }}
+    <link href="{{ $styles.RelPermalink }}" rel="stylesheet" />

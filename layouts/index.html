@@ -1,13 +1,29 @@
 {{ define "main" }}
-  <article class="prose lg:prose-xl">
-    <h1>Tailwind 3 Hugo Starter</h1>
-
-    <h2 class="text-4xl">Testing Tailwind 3 Features</h2>
-    <div>
-      <button class="bg-[green] p-4">Share on Twitter</button>
+<section class="container mx-auto">
+  <div class="columns-1">
+    <div class="row mb-3">
+      <div class="col-4  align-self-center">
+        {{ partial "description" . }}
+      </div>
+      <div class="">
+        {{- $post := . -}}
+              {{- with .Params.images -}}
+                {{- if reflect.IsSlice . -}}
+                  {{- with index . 0 -}}
+                    {{- with $image := $post.Resources.GetMatch . }}
+                      <img src="{{ $image.RelPermalink }}" class="w-1/2 h-1/2" alt="{{ printf "Image for post %s" $post.Title }}" title="{{ $post.Title }}">
+                    {{- end -}}
+                  {{- end -}}
+                {{- end -}}
+              {{- end -}}
+      </div>
     </div>
-
-    <h2 class="text-4xl">Markdowns: {{ .Title }}</h2>
-    {{ .Content }}..
-  </article>
+    <div class="container">
+      <div class="col" style="border:1px solid yellowgreen;">
+        {{ .Content }}
+      </div>
+    </div>
+    
+  </div>
+</section>
 {{ end }}
