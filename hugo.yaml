@@ -11,6 +11,8 @@ module:
       target: assets
     - source: hugo_stats.json
       target: assets/watching/hugo_stats.json
+    - source: partials
+      target: content
 
 build:
   buildStats:
